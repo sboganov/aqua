@@ -1,5 +1,8 @@
 #include "Arduino.h"
-//The setup function is called once at startup of the sketch
+#include "RTClock.h"
+RTClock rt(RTCSEL_LSE); // initialise
+USBSerial serial_debug;
+
 void setup()
 {
 // Add your initialization code here
