@@ -42,6 +42,11 @@
 			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/variants/generic_stm32f103c</location>
 		</link>
 		<link>
+			<name>libraries/A_STM32_Examples</name>
+			<type>2</type>
+			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/libraries/A_STM32_Examples</location>
+		</link>
+		<link>
 			<name>libraries/RTClock</name>
 			<type>2</type>
 			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/libraries/RTClock</location>

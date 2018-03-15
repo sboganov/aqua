@@ -23,6 +23,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/A_STM32_Examples}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1230337347" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -32,6 +33,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/A_STM32_Examples}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.1118190897" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -41,6 +43,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/RTClock/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Aqua/libraries/A_STM32_Examples}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.2035531167" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
