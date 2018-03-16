@@ -5,7 +5,43 @@
 #define LED_PIN PC13
 
 RTClock rt(RTCSEL_LSE); // initialise
-USBSerial SerialDebug;
+tm_t alarmTime;
+
+#define START_HOUR  8
+#define END_HOUR   20
+
+void printTime(tm_t &t) {
+	Serial.print(t.hour);
+	Serial.print(":");
+	Serial.print(t.minute);
+	Serial.print(":");
+	Serial.print(t.second);
+	Serial.print(" day:");
+	Serial.print(t.day);
+	Serial.print("/");
+	Serial.print(t.month);
+	Serial.print("/");
+	Serial.println(t.year + 1970);
+}
+
+void alarmClock() {
+	Serial.println(">>>>>>set alarm clock<<<<<<<<<");
+
+	rt.getTime(alarmTime);
+	alarmTime.minute = 0;
+	alarmTime.second = 0;
+	if (alarmTime.hour >= START_HOUR && alarmTime.hour < END_HOUR) {
+		digitalWrite(LED_PIN, LOW);
+		alarmTime.hour = END_HOUR;
+	} else {
+		digitalWrite(LED_PIN, HIGH);
+		alarmTime.day++;
+		alarmTime.hour = START_HOUR;
+	}
+	printTime (alarmTime);
+	// rt.attachAlarmInterrupt(alarmClock, rt.makeTime(alarmTime));
+	rt.attachAlarmInterrupt(alarmClock, rt.getTime() + 20);
+}
 
 void setup_vdd_tempr_sensor() {
 	adc_reg_map *regs = ADC1->regs;
@@ -21,11 +57,19 @@ void everySecond() {
 }
 
 void setup() {
-	SerialDebug.begin(Serial);
+	Serial.begin();
 	pinMode(LED_PIN, OUTPUT);
 	rt.attachSecondsInterrupt(everySecond);
 	setup_vdd_tempr_sensor();
+	static tm_t ntime;
+	ntime.hour = 21;
+	ntime.minute = 30;
+	ntime.day = 14;
+	ntime.month = 3;
+	ntime.year = 2018 - 1970;
 
+	rt.setTime(rt.makeTime(ntime));
+	alarmClock();
 }
 
 void loop() {
@@ -38,8 +82,9 @@ void loop() {
 	tempr = (1.43 - (vdd / 4096.0 * adc_read(ADC1, 16))) / 0.0043 + 25.0;
 	Serial.print("Vdd=  ");
 	Serial.print(vdd);
-	Serial.println(" V");
+	Serial.print(" V ");
 	Serial.print("Temp= ");
 	Serial.print(tempr);
 	Serial.println(" C");
+
 }
