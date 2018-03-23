@@ -1,6 +1,7 @@
 #include "RTClock.h"
 #include <stdio.h>
 #include <libmaple/adc.h>
+#include <libmaple/iwdg.h>
 
 #define LED_PIN PC13
 
@@ -54,10 +55,13 @@ void setup_vdd_tempr_sensor() {
 
 void everySecond() {
 	digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+    iwdg_feed();
 }
 
 void setup() {
 	Serial.begin();
+	delay(8000);
+	Serial.println("              SETUP           ");
 	pinMode(LED_PIN, OUTPUT);
 	rt.attachSecondsInterrupt(everySecond);
 	setup_vdd_tempr_sensor();
@@ -70,6 +74,8 @@ void setup() {
 
 	rt.setTime(rt.makeTime(ntime));
 	alarmClock();
+
+	iwdg_init(IWDG_PRE_256, 1250); // init an 8 second wd timer
 }
 
 void loop() {
