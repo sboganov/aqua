@@ -1,4 +1,5 @@
 #include "RTClock.h"
+#include "LightControl.h"
 #include <stdio.h>
 #include <libmaple/adc.h>
 #include <libmaple/iwdg.h>
@@ -10,6 +11,8 @@ tm_t alarmTime;
 
 #define START_HOUR  8
 #define END_HOUR   20
+
+LightControl lightcontrol;
 
 void printTime(tm_t &t) {
 	Serial.print(t.hour);
@@ -25,25 +28,6 @@ void printTime(tm_t &t) {
 	Serial.println(t.year + 1970);
 }
 
-void alarmClock() {
-	Serial.println(">>>>>>set alarm clock<<<<<<<<<");
-
-	rt.getTime(alarmTime);
-	alarmTime.minute = 0;
-	alarmTime.second = 0;
-	if (alarmTime.hour >= START_HOUR && alarmTime.hour < END_HOUR) {
-		digitalWrite(LED_PIN, LOW);
-		alarmTime.hour = END_HOUR;
-	} else {
-		digitalWrite(LED_PIN, HIGH);
-		alarmTime.day++;
-		alarmTime.hour = START_HOUR;
-	}
-	printTime (alarmTime);
-	// rt.attachAlarmInterrupt(alarmClock, rt.makeTime(alarmTime));
-	rt.attachAlarmInterrupt(alarmClock, rt.getTime() + 20);
-}
-
 void setup_vdd_tempr_sensor() {
 	adc_reg_map *regs = ADC1->regs;
 	regs->CR2 |= ADC_CR2_TSVREFE;    // enable VREFINT and Temperature sensor
@@ -56,26 +40,43 @@ void setup_vdd_tempr_sensor() {
 void everySecond() {
 	digitalWrite(LED_PIN, !digitalRead(LED_PIN));
     iwdg_feed();
+
+	tm_t currentTime;
+	rt.getTime(currentTime);
+	lightcontrol.update(currentTime);
+
 }
 
 void setup() {
+	pinMode(LED_PIN, OUTPUT);
+	for(int i=0;i < 20; i++) {
+		digitalWrite(LED_PIN,HIGH);
+		delay(100);
+		digitalWrite(LED_PIN,LOW);
+		delay(100);
+	}
 	Serial.begin();
 	delay(8000);
 	Serial.println("              SETUP           ");
-	pinMode(LED_PIN, OUTPUT);
-	rt.attachSecondsInterrupt(everySecond);
+
+
 	setup_vdd_tempr_sensor();
 	static tm_t ntime;
-	ntime.hour = 21;
-	ntime.minute = 30;
-	ntime.day = 14;
-	ntime.month = 3;
-	ntime.year = 2018 - 1970;
 
-	rt.setTime(rt.makeTime(ntime));
-	alarmClock();
+	Serial.println("              INIT           ");
+	delay(1000);
 
+	rt.getTime(ntime);
+
+	Serial.println("Setup time");
+	delay(1000);
+
+	lightcontrol.init(ntime);
+	printTime(ntime);
+	Serial.println("watchdog");
+	delay(1000);
 	iwdg_init(IWDG_PRE_256, 1250); // init an 8 second wd timer
+	rt.attachSecondsInterrupt(everySecond);
 }
 
 void loop() {

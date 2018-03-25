@@ -53,6 +53,11 @@
 							<tool id="io.sloeber.tool.size.1029684811" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="io.sloeber.core.toolChain.release.1468871550.396800275" name="LightControl.ino" rcbsApplicability="disable" resourcePath="LightControl.ino" toolsToInvoke="io.sloeber.tool.sketch.compiler.cpp.1024159069.1629382294">
+						<tool id="io.sloeber.tool.sketch.compiler.cpp.1024159069.1629382294" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.1024159069">
+							<inputType id="io.sloeber.compiler.cpp.sketch.input.2114041368" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries/**/._*|libraries/?*/utility/*/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 					</sourceEntries>
@@ -68,6 +73,10 @@
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/Aqua"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
