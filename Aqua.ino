@@ -49,19 +49,30 @@ void everySecond() {
 
 void setup() {
 	pinMode(LED_PIN, OUTPUT);
+	pinMode(RELAY_PIN, OUTPUT);
 	for(int i=0;i < 20; i++) {
 		digitalWrite(LED_PIN,HIGH);
 		delay(100);
 		digitalWrite(LED_PIN,LOW);
 		delay(100);
 	}
-	Serial.begin();
-	delay(8000);
-	Serial.println("              SETUP           ");
 
+	// Serial.begin();
+
+	Serial.println("              SETUP           ");
+	static tm_t ntime;
+
+	if(rt.getTime() < 1000) {
+		Serial.println("set up time");
+		ntime.day = 02;
+		ntime.month = 04;
+		ntime.year = 2018 - 1970;
+		ntime.hour = 15;
+		ntime.minute = 35;
+		rt.setTime(ntime);
+	}
 
 	setup_vdd_tempr_sensor();
-	static tm_t ntime;
 
 	Serial.println("              INIT           ");
 	delay(1000);

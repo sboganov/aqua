@@ -8,11 +8,14 @@
 #ifndef LIGHTCONTROL_H_
 #define LIGHTCONTROL_H_
 #include "RTClock.h"
-#define RELAY_PIN	PC14
+#define RELAY_PIN	PA4
 
 
 class LightControl {
-public:;
+public:
+	LightControl() {
+
+	}
 void init(tm_t &currentTime) {
 	if (currentTime.hour >= 8 && currentTime.hour < 20) {
 		digitalWrite(RELAY_PIN, LOW);
