@@ -39,7 +39,7 @@ void setup_vdd_tempr_sensor() {
 
 void everySecond() {
 	digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-    iwdg_feed();
+	iwdg_feed();
 
 	tm_t currentTime;
 	rt.getTime(currentTime);
@@ -50,10 +50,17 @@ void everySecond() {
 void setup() {
 	pinMode(LED_PIN, OUTPUT);
 	pinMode(RELAY_PIN, OUTPUT);
-	for(int i=0;i < 20; i++) {
-		digitalWrite(LED_PIN,HIGH);
+
+	pinMode(PA2, OUTPUT);
+	pinMode(PA3, OUTPUT);
+	pinMode(PA5, OUTPUT);
+	digitalWrite(PA3, HIGH);
+	digitalWrite(PA5, HIGH);
+
+	for (int i = 0; i < 20; i++) {
+		digitalWrite(LED_PIN, HIGH);
 		delay(100);
-		digitalWrite(LED_PIN,LOW);
+		digitalWrite(LED_PIN, LOW);
 		delay(100);
 	}
 
@@ -62,7 +69,7 @@ void setup() {
 	Serial.println("              SETUP           ");
 	static tm_t ntime;
 
-	if(rt.getTime() < 1000) {
+	if (rt.getTime() < 1000) {
 		Serial.println("set up time");
 		ntime.day = 02;
 		ntime.month = 04;
@@ -91,7 +98,7 @@ void setup() {
 }
 
 void loop() {
-	delay(5000);
+	// delay(5000);
 	float tempr, vdd;
 	// reading Vdd by utilising the internal 1.20V VREF
 	vdd = 1.20 * 4096.0 / adc_read(ADC1, 17);
@@ -105,4 +112,14 @@ void loop() {
 	Serial.print(tempr);
 	Serial.println(" C");
 
+	digitalWrite(PA5, LOW);
+	delay(100);
+	for (int i = 0; i < 4000; i++) {
+		digitalWrite(PA2, HIGH);
+		delayMicroseconds(900);
+		digitalWrite(PA2, LOW);
+		delayMicroseconds(900);
+	}
+	digitalWrite(PA5, HIGH);
+	delay(10000);
 }

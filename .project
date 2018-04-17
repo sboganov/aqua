@@ -47,6 +47,11 @@
 			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/libraries/A_STM32_Examples</location>
 		</link>
 		<link>
+			<name>libraries/FreeRTOS900</name>
+			<type>2</type>
+			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/libraries/FreeRTOS900</location>
+		</link>
+		<link>
 			<name>libraries/RTClock</name>
 			<type>2</type>
 			<location>D:/Users/sboga/Arduino/hardware/Arduino_STM32/STM32F1/libraries/RTClock</location>
