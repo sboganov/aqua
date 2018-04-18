@@ -54,6 +54,7 @@ void setup() {
 	pinMode(PA2, OUTPUT);
 	pinMode(PA3, OUTPUT);
 	pinMode(PA5, OUTPUT);
+	digitalWrite(PA2, LOW);
 	digitalWrite(PA3, HIGH);
 	digitalWrite(PA5, HIGH);
 
@@ -113,13 +114,40 @@ void loop() {
 	Serial.println(" C");
 
 	digitalWrite(PA5, LOW);
+	digitalWrite(PA3, HIGH);
 	delay(100);
-	for (int i = 0; i < 4000; i++) {
+	for (long step = 0; step < 40000; step++) {
+		digitalWrite(PA2, HIGH);
+		delayMicroseconds(900);
+		digitalWrite(PA2, LOW);
+		delayMicroseconds(900);
+		if (step % 100 == 0) {
+			Serial.println(step);
+		}
+	}
+	for (int st = 0; st < 50; st++) {
+		digitalWrite(PA5, LOW);
+		delay(1000);
+		for (int i = 0; i < 2000; i++) {
+			digitalWrite(PA2, HIGH);
+			delayMicroseconds(900);
+			digitalWrite(PA2, LOW);
+			delayMicroseconds(900);
+		}
+		digitalWrite(PA5, HIGH);
+		Serial.println(st);
+		delay(30000);
+	}
+
+	digitalWrite(PA5, LOW);
+	digitalWrite(PA3, LOW);
+	delay(100);
+	for (long step = 0; step < 40000; step++) {
 		digitalWrite(PA2, HIGH);
 		delayMicroseconds(900);
 		digitalWrite(PA2, LOW);
 		delayMicroseconds(900);
 	}
 	digitalWrite(PA5, HIGH);
-	delay(10000);
+	delay(1000);
 }
