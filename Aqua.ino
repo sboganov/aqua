@@ -97,9 +97,10 @@ void setup() {
 	iwdg_init(IWDG_PRE_256, 1250); // init an 8 second wd timer
 	rt.attachSecondsInterrupt(everySecond);
 }
-
+boolean start = true;
 void loop() {
 	// delay(5000);
+
 	float tempr, vdd;
 	// reading Vdd by utilising the internal 1.20V VREF
 	vdd = 1.20 * 4096.0 / adc_read(ADC1, 17);
@@ -113,41 +114,45 @@ void loop() {
 	Serial.print(tempr);
 	Serial.println(" C");
 
-	digitalWrite(PA5, LOW);
-	digitalWrite(PA3, HIGH);
-	delay(100);
-	for (long step = 0; step < 40000; step++) {
-		digitalWrite(PA2, HIGH);
-		delayMicroseconds(900);
-		digitalWrite(PA2, LOW);
-		delayMicroseconds(900);
-		if (step % 100 == 0) {
-			Serial.println(step);
-		}
-	}
-	for (int st = 0; st < 50; st++) {
+	if (start) {
+		start = false;
+
 		digitalWrite(PA5, LOW);
-		delay(1000);
-		for (int i = 0; i < 2000; i++) {
+		digitalWrite(PA3, HIGH);
+		delay(100);
+		for (long step = 0; step < 40000; step++) {
+			digitalWrite(PA2, HIGH);
+			delayMicroseconds(900);
+			digitalWrite(PA2, LOW);
+			delayMicroseconds(900);
+			if (step % 100 == 0) {
+				Serial.println(step);
+			}
+		}
+		for (int st = 0; st < 50; st++) {
+			digitalWrite(PA5, LOW);
+			delay(1000);
+			for (int i = 0; i < 3000; i++) {
+				digitalWrite(PA2, HIGH);
+				delayMicroseconds(900);
+				digitalWrite(PA2, LOW);
+				delayMicroseconds(900);
+			}
+			digitalWrite(PA5, HIGH);
+			Serial.println(st);
+			delay(3000);
+		}
+
+		digitalWrite(PA5, LOW);
+		digitalWrite(PA3, LOW);
+		delay(100);
+		for (long step = 0; step < 40000; step++) {
 			digitalWrite(PA2, HIGH);
 			delayMicroseconds(900);
 			digitalWrite(PA2, LOW);
 			delayMicroseconds(900);
 		}
 		digitalWrite(PA5, HIGH);
-		Serial.println(st);
-		delay(30000);
+		delay(1000);
 	}
-
-	digitalWrite(PA5, LOW);
-	digitalWrite(PA3, LOW);
-	delay(100);
-	for (long step = 0; step < 40000; step++) {
-		digitalWrite(PA2, HIGH);
-		delayMicroseconds(900);
-		digitalWrite(PA2, LOW);
-		delayMicroseconds(900);
-	}
-	digitalWrite(PA5, HIGH);
-	delay(1000);
 }
